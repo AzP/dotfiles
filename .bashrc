@@ -5,12 +5,14 @@
 # file *should generate no output* or it will break the scp and rcp commands.
 
 # colors for ls, etc.
-RADEON_HYPERZ=1
+export RADEON_HYPERZ=1
+export LIBVA_DRIVER_NAME=gallium
 
 alias d="ls --color -h"
 alias ls="ls --color -Fh"
 alias ll="ls --color -lh"
 alias gvim="gvim -p"
+alias vless='vim -u /usr/share/vim/vim74/macros/less.vim'
 
 # Change the window title of X terminals 
 case $TERM in

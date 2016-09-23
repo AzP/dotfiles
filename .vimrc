@@ -1,7 +1,7 @@
 set nocompatible
 
 " To be set before plugins are loaded
-"let mapleader=","
+let mapleader=","
 
 " Vundle stuff
 filetype off       " required!
@@ -21,6 +21,7 @@ Plugin 'lukerandall/haskellmode-vim'
 Plugin 'The-NERD-Commenter'
 Plugin 'tikhomirov/vim-glsl'
 Plugin 'clang-complete'
+Plugin 'vim-airline'
 
 " Color schemes
 Plugin 'jnurmine/Zenburn'
@@ -28,9 +29,9 @@ Plugin 'jnurmine/Zenburn'
 call vundle#end()
 
 " Easytags settings
-set tags=./.tags;
-let g:easytags_dynamic_files=2 " Always create a local tags file
-let g:easytags_python_enabled=1
+" set tags=./.tags;
+" let g:easytags_dynamic_files=2 " Always create a local tags file
+" let g:easytags_python_enabled=1
 
 " clang_complete settings
 let clang_library_path="/usr/lib64/"
@@ -40,6 +41,9 @@ filetype plugin indent on
 syntax on
 set autochdir
 
+set switchbuf=usetab   " Use existing buffer if file is opened in one
+
+" Tab stuff
 set noet
 set shiftwidth=4
 set softtabstop=4
@@ -103,7 +107,7 @@ let g:haddock_browser="/usr/bin/firefox"
 set foldmethod=syntax
 autocmd FileType cpp,h set omnifunc=omni#cpp#complete#Main
 autocmd FileType c,cpp,java,h set foldlevel=5 | set foldcolumn=3 | set sm!
-autocmd FileType c,cpp,h let b:easytags_auto_highlight = 0 | let g:clang_use_library=1 | let g:clang_snippets=1 | let g:clang_periodic_quickfix=1
+autocmd FileType c,cpp,h let g:clang_use_library=1 | let g:clang_snippets=1 | let g:clang_periodic_quickfix=1
 let c_no_comment_fold=1
 
 " Toggle fold state between closed and opened. 

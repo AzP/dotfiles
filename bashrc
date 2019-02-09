@@ -12,7 +12,7 @@ alias d="ls --color -h"
 alias ls="ls --color -Fh"
 alias ll="ls --color -lh"
 alias gvim="gvim -p"
-alias vless='vim -u /usr/share/vim/vim80/macros/less.vim'
+alias vless='vim -u /usr/share/vim/vim81/macros/less.vim'
 
 #Use wayland
 SDL_VIDEODRIVER=wayland

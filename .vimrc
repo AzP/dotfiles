@@ -9,19 +9,19 @@ set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
 
 " let Vundle manage itself
-Plugin 'gmarik/Vundle.vim'
+Plugin 'VundleVim/Vundle.vim'
 
 " My Plugins here
 " original repos on github
 Plugin 'tpope/vim-git'
 Plugin 'tpope/vim-fugitive'
-" Plugin 'xolox/vim-easytags'
-" Plugin 'xolox/vim-misc'
-Plugin 'lukerandall/haskellmode-vim'
 Plugin 'The-NERD-Commenter'
 Plugin 'tikhomirov/vim-glsl'
-Plugin 'clang-complete'
 Plugin 'vim-airline'
+Plugin 'vim-airline/vim-airline-themes'
+Plugin 'Splice'
+Plugin 'AnsiEsc.vim'
+Plugin 'Valloric/YouCompleteMe'
 
 " Color schemes
 Plugin 'jnurmine/Zenburn'
@@ -34,7 +34,11 @@ call vundle#end()
 " let g:easytags_python_enabled=1
 
 " clang_complete settings
-let clang_library_path="/usr/lib64/"
+let g:clang_library_path="/usr/lib/llvm/7/lib64/"
+let g:clang_complete_auto = 0
+let g:clang_auto_select = 0
+let g:clang_omnicppcomplete_compliance = 0
+let g:clang_make_default_keymappings = 0
 
 " Rest of file
 filetype plugin indent on
@@ -57,7 +61,7 @@ set viminfo='20,\"50	" read/write a .viminfo file, don't store more than 50 line
 set history=50		    " keep 50 lines of command line history
 set ruler	        	" show the cursor position all the time
 set number
-
+set encoding=utf-8
 set nowrap
 set incsearch hlsearch
 filetype indent plugin on
@@ -68,12 +72,23 @@ nnoremap <c-p> p
 " autoformat on ctrl k + ctrl d
 map <C-k><C-d> mzgg=G`z<CR>
 
-let zenburn_high_Contrast=0
-" 256 color Vim
+" airline stuff
+let g:airline_powerline_fonts=1
+if !exists('g:airline_symbols')
+  let g:airline_symbols = {}
+endif
+let g:airline_symbols.space = "\ua0"
+
+" 256 color Vim, must be done before setting colorscheme
 set t_Co=256
+let zenburn_high_Contrast=0
 colo zenburn
+
+" Gvim font
 set grepprg=grep\ -nH\ $*
-set guifont=Anonymous\ Pro\ 8
+if has('gui_running')
+	set guifont=Hack\ 8
+endif
 
 "Remove tearoff menus
 let &guioptions = substitute(&guioptions, "t", "", "g")
@@ -98,15 +113,15 @@ let g:TagsMenu_subgroupByFirstChar = 1
 autocmd FileType c,cpp,perl,java,html,xml,php :inoremap <Tab> <Esc>{=}<C-O><C-O>a
 
 " Haskell stuff
-au BufEnter *.hs compiler ghc
-autocmd FileType haskell :setlocal formatoptions+=t
-let b:ghc_staticoptions = '-Wall -Werror'
-let g:haddock_browser="/usr/bin/firefox"
+"au BufEnter *.hs compiler ghc
+"autocmd FileType haskell :setlocal formatoptions+=t
+"let b:ghc_staticoptions = '-Wall -Werror'
+"let g:haddock_browser="/usr/bin/firefox"
 
 " folding help
 set foldmethod=syntax
-autocmd FileType cpp,h set omnifunc=omni#cpp#complete#Main
-autocmd FileType c,cpp,java,h set foldlevel=5 | set foldcolumn=3 | set sm!
+"autocmd FileType cpp,h set omnifunc=omni#cpp#complete#Main
+autocmd FileType c,cpp,java,h set foldlevel=5 | set foldcolumn=3 | set sm! | set cino+=t0,g0,N-s
 autocmd FileType c,cpp,h let g:clang_use_library=1 | let g:clang_snippets=1 | let g:clang_periodic_quickfix=1
 let c_no_comment_fold=1
 

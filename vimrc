@@ -20,8 +20,10 @@ Plugin 'tikhomirov/vim-glsl'
 Plugin 'vim-airline'
 Plugin 'vim-airline/vim-airline-themes'
 Plugin 'Splice'
-Plugin 'AnsiEsc.vim'
+Plugin 'powerman/vim-plugin-AnsiEsc'
 Plugin 'Valloric/YouCompleteMe'
+Plugin 'editorconfig/editorconfig-vim'
+Plugin 'Chiel92/vim-autoformat'
 
 " Color schemes
 Plugin 'jnurmine/Zenburn'
@@ -34,11 +36,11 @@ call vundle#end()
 " let g:easytags_python_enabled=1
 
 " clang_complete settings
-let g:clang_library_path="/usr/lib/llvm/7/lib64/"
-let g:clang_complete_auto = 0
-let g:clang_auto_select = 0
-let g:clang_omnicppcomplete_compliance = 0
-let g:clang_make_default_keymappings = 0
+"let g:clang_library_path="/usr/lib/llvm/7/lib64/"
+"let g:clang_complete_auto = 0
+"let g:clang_auto_select = 0
+"let g:clang_omnicppcomplete_compliance = 0
+"let g:clang_make_default_keymappings = 0
 
 " Rest of file
 filetype plugin indent on
@@ -70,7 +72,9 @@ filetype indent plugin on
 nnoremap p p=`]
 nnoremap <c-p> p
 " autoformat on ctrl k + ctrl d
-map <C-k><C-d> mzgg=G`z<CR>
+"map <C-k><C-d> mzgg=G`z<CR>
+" autoformat using vim-autoformat on ctrl k + ctrl d
+map <C-k><C-d> :Autoformat<CR>
 
 " airline stuff
 let g:airline_powerline_fonts=1
@@ -78,6 +82,13 @@ if !exists('g:airline_symbols')
   let g:airline_symbols = {}
 endif
 let g:airline_symbols.space = "\ua0"
+
+" Truecolor support
+if has('nvim')
+	"set t_8f=[38;2;%lu;%lu;%lum
+	"set t_8b=[48;2;%lu;%lu;%lum
+	set termguicolors
+endif
 
 " 256 color Vim, must be done before setting colorscheme
 set t_Co=256
@@ -121,8 +132,8 @@ autocmd FileType c,cpp,perl,java,html,xml,php :inoremap <Tab> <Esc>{=}<C-O><C-O>
 " folding help
 set foldmethod=syntax
 "autocmd FileType cpp,h set omnifunc=omni#cpp#complete#Main
-autocmd FileType c,cpp,java,h set foldlevel=5 | set foldcolumn=3 | set sm! | set cino+=t0,g0,N-s
-autocmd FileType c,cpp,h let g:clang_use_library=1 | let g:clang_snippets=1 | let g:clang_periodic_quickfix=1
+autocmd Syntax c,cpp,java,h,py set foldlevelstart=20 | set foldcolumn=5 | set sm! | set cino+=t0,g0,N-s
+autocmd Syntax c,cpp,h,py let g:clang_use_library=1 | let g:clang_snippets=1 | let g:clang_periodic_quickfix=1
 let c_no_comment_fold=1
 
 " Toggle fold state between closed and opened. 
@@ -152,7 +163,7 @@ set laststatus=2
 inoremap <C-space> <C-x><C-u>
 
 " Map for updating clang_complete error list
-nmap <leader>u <silent>:call g:ClangUpdateQuickFix()<CR>
+"nmap <leader>u <silent>:call g:ClangUpdateQuickFix()<CR>
 
 " Find references, go to declarations, find subclasses (depends on vim plugin
 " clang_indexer
@@ -161,7 +172,7 @@ nmap <leader>u <silent>:call g:ClangUpdateQuickFix()<CR>
 "nnoremap <Leader>s :call ClangGetSubclasses()<CR>
 
 " Go to symbol / go back to previous position
-nmap <F7> <C-]>
+nmap <F7> :YcmCompleter GoTo<CR>
 nmap <S-F7> <C-T>
 nmap <A-F7> :ptselect<CR>
 nmap <F8> :tnext<CR>

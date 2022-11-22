@@ -1,17 +1,32 @@
-# /etc/skel/.bashrc:
-# $Header: /home/cvsroot/gentoo-src/rc-scripts/etc/skel/.bashrc,v 1.8 2003/02/28 15:45:35 azarah Exp $
+# /etc/skel/.bashrc
+#
+# This file is sourced by all *interactive* bash shells on startup,
+# including some apparently interactive shells such as scp and rcp
+# that can't tolerate any output.  So make sure this doesn't display
+# anything or bad things will happen !
 
-# This file is sourced by all *interactive* bash shells on startup.  This
-# file *should generate no output* or it will break the scp and rcp commands.
+# Test for an interactive shell.  There is no need to set anything
+# past this point for scp and rcp, and it's important to refrain from
+# outputting anything in those cases.
+if [[ $- != *i* ]] ; then
+	# Shell is non-interactive.  Be done now!
+	return
+fi
+
+
+# Put your fun stuff here.
 
 # colors for ls, etc.
 export RADEON_HYPERZ=1
 export LIBVA_DRIVER_NAME=gallium
+export BEMENU_BACKEND=wayland
+export QT_QPA_PLATFORM=wayland
+export XDG_CURRENT_DESKTOP=Unity
 
 alias d="ls --color -h"
 alias ls="ls --color -Fh"
 alias ll="ls --color -lh"
-alias gvim="gvim -p"
+alias gvim="nvim-qt"
 alias vless='vim -u /usr/share/vim/vim81/macros/less.vim'
 
 #Use wayland
@@ -19,9 +34,12 @@ SDL_VIDEODRIVER=wayland
 
 export ECHANGELOG_USER="AzP <peterasplund@gentoo.se>"
 
+# Add local bin to PATH
+export PATH=$PATH:~/.local/bin
+
 # Change the window title of X terminals 
 case $TERM in
-	urxvt|rxvt-unicode|xterm*|rxvt|Eterm|eterm)
+	vte-256color|gnome-256color|urxvt|rxvt-unicode|xterm*|rxvt|Eterm|eterm)
 		PROMPT_COMMAND='echo -ne "\033]0;${USER}@${HOSTNAME%%.*}:${PWD/$HOME/~}\007"'
 		;;
 	screen)

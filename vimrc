@@ -24,9 +24,12 @@ Plugin 'powerman/vim-plugin-AnsiEsc'
 Plugin 'Valloric/YouCompleteMe'
 Plugin 'editorconfig/editorconfig-vim'
 Plugin 'Chiel92/vim-autoformat'
+Plugin 'sheerun/vim-polyglot'
+Plugin 'mhinz/vim-startify'
 
 " Color schemes
 Plugin 'jnurmine/Zenburn'
+
 " Required by Vundle
 call vundle#end()
 
@@ -74,7 +77,7 @@ nnoremap <c-p> p
 " autoformat on ctrl k + ctrl d
 "map <C-k><C-d> mzgg=G`z<CR>
 " autoformat using vim-autoformat on ctrl k + ctrl d
-map <C-k><C-d> :Autoformat<CR>
+noremap <C-k><C-d> :Autoformat<CR>
 
 " airline stuff
 let g:airline_powerline_fonts=1
@@ -88,6 +91,7 @@ if has('nvim')
 	"set t_8f=[38;2;%lu;%lu;%lum
 	"set t_8b=[48;2;%lu;%lu;%lum
 	set termguicolors
+	set guifont=Hack:h8
 endif
 
 " 256 color Vim, must be done before setting colorscheme
@@ -98,7 +102,7 @@ colo zenburn
 " Gvim font
 set grepprg=grep\ -nH\ $*
 if has('gui_running')
-	set guifont=Hack\ 8
+	set guifont=Hack:h8
 endif
 
 "Remove tearoff menus
@@ -123,11 +127,8 @@ let g:TagsMenu_subgroupByFirstChar = 1
 " autoindenting for C/C++/Perl,java,html,xml,php like in Emacs
 autocmd FileType c,cpp,perl,java,html,xml,php :inoremap <Tab> <Esc>{=}<C-O><C-O>a
 
-" Haskell stuff
-"au BufEnter *.hs compiler ghc
-"autocmd FileType haskell :setlocal formatoptions+=t
-"let b:ghc_staticoptions = '-Wall -Werror'
-"let g:haddock_browser="/usr/bin/firefox"
+" Meson
+let meson_space_error_highlight = 1
 
 " folding help
 set foldmethod=syntax

@@ -1,0 +1,17 @@
+# Your preferred application launcher
+# Note: it's recommended that you pass the final command to sway
+set $uifont "Hack 12"
+set $highlight #3daee9
+set $prompt #18b218
+set $menu bemenu-run --fn $uifont -b -p "▶" --tf "$prompt" --hf "$highlight" --sf "$highlight" --scf "$highlight" | xargs -r swaymsg -t exec --
+
+# Font for window titles. Will also be used by the bar unless a different font
+# is used in the bar {} block below.
+font pango:Hack 8
+
+# Colors
+client.background n/a #434c5e n/a
+client.focused #4C566A #434c5e #eceff4 #434c5e #434c5e
+client.focused_inactive #3b4252 #3b4252 #eceff4 #3b4252 #3b4252
+client.unfocused #3b4252 #3b4252 #eceff4 #3b4252 #3b4252
+client.urgent #4C566A #434c5e #eceff4 #434c5e #434c5e

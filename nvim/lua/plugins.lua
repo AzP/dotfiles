@@ -3,9 +3,13 @@
 -- autocmd for automatically run PackerCompile when plugins.lua is updated
 local augroup = vim.api.nvim_create_augroup('package_user_config', {clear = true})
 vim.api.nvim_create_autocmd('BufWritePost', {
-		group = packer_user_config,
+		group = augroup,
 		pattern = 'plugins.lua',
-		command = 'source <afile> | PackerCompile'
+		callback = function(args)
+			vim.cmd.source(args.file)
+			vim.cmd.PackerCompile()
+		end,
+		desc = "Compile Packer plugins source.",
 	})
 
 -- Enable automatic download and init of packer
@@ -72,5 +76,11 @@ return require('packer').startup(function(use)
 
 	-- color schemes
 	use 'jnurmine/zenburn'
+
+	-- Automatically set up configuration after cloning packer.nvim
+	-- Should be after all listed plugins
+	if packer_bootstrap then
+		require('packer').sync()
+	end
 end
 )

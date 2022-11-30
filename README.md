@@ -1,2 +1,2 @@
 # configs
-My own configs like rc-files
+My own config files like rc-files, dotfiles, etc.

@@ -3,12 +3,14 @@ exec /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
 
 # wob overlay
 set $wobsock $XDG_RUNTIME_DIR/wob.sock
-set $wobcommand wob --bar-color=#FFA3BE8C --background-color=#FF3B4252 --border-color=#FF8FBCBB --anchor=bottom --width=600 --height=50 --border=5 --offset=0 --padding=5 --margin=60
+set $wobcommand wob
 exec_always {
 	killall -q wob
+	rm -f $wobsock
 	mkfifo $wobsock
 	tail -f $wobsock | $wobcommand
 }
+exec systemctl --user import-environment DISPLAY WAYLAND_DISPLAY SWAYSOCK
 
 # mako notifications
 exec_always mako
@@ -18,6 +20,5 @@ exec_always nm-applet --indicator
 exec wlsunset
 
 # Workaround for gtk applications that takes 20 seconds to start
-exec systemctl --user import-environment DISPLAY WAYLAND_DISPLAY SWAYSOCK
 exec hash dbus-update-activation-environment 2>/dev/null && \
 	dbus-update-activation-environment --systemd DISPLAY WAYLAND_DISPLAY SWAYSOCK

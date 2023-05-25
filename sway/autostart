@@ -1,5 +1,14 @@
 # Auto-start applications
-exec /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
+
+# Allow the user to run apps as root
+exec_always /usr/libexec/polkit-gnome-authentication-agent-1
+
+# Workaround for gtk applications that takes 20 seconds to start
+# https://github.com/swaywm/sway/wiki#gtk-applications-take-20-seconds-to-start
+exec_always {
+	systemctl --user import-environment DISPLAY WAYLAND_DISPLAY SWAYSOCK XDG_CURRENT_DESKTOP
+	dbus-update-activation-environment --systemd DISPLAY WAYLAND_DISPLAY SWAYSOCK XDG_CURRENT_DESKTOP=sway
+}
 
 # wob overlay
 set $wobsock $XDG_RUNTIME_DIR/wob.sock
@@ -10,15 +19,11 @@ exec_always {
 	mkfifo $wobsock
 	tail -f $wobsock | $wobcommand
 }
-exec systemctl --user import-environment DISPLAY WAYLAND_DISPLAY SWAYSOCK
 
 # mako notifications
 exec_always mako
 exec_always nm-applet --indicator
 
 # Night mode
-exec wlsunset
+exec_always wlsunset -g 0.9 -t 4000 -T 6500 -l 59.3 -L 18.0
 
-# Workaround for gtk applications that takes 20 seconds to start
-exec hash dbus-update-activation-environment 2>/dev/null && \
-	dbus-update-activation-environment --systemd DISPLAY WAYLAND_DISPLAY SWAYSOCK

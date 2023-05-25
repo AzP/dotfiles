@@ -26,14 +26,14 @@
         ],
         "modules-right": [
             "custom/spotify",
-        "custom/weather",
-        "custom/storage",
-        "pulseaudio",
-        "network",
-        "memory",
-        "cpu",
-        "sway/language",
-        "tray",
+            "custom/weather",
+            "custom/storage",
+            "pulseaudio",
+            "network",
+            "memory",
+            "cpu",
+            "sway/language",
+            "tray",
         ],
 
         // -------------------------------------------------------------------------
@@ -101,9 +101,13 @@
         },
         "custom/spotify": {
             "interval": 1,
-            "return-type": "json",
             "exec": "~/.config/waybar/modules/spotify.sh",
             "exec-if": "pgrep spotify",
+            "on-click": "playerctl play-pause",
+            "on-click-right": "playerctl stop",
+            "on-scroll-down": "playerctl previous",
+            "on-scroll-up": "playerctl next",
+            "return-type": "json",
             "escape": true
         },
         "custom/storage": {

@@ -23,8 +23,8 @@ for_window [class="steam_app*"] inhibit_idle focus
 #for_window [app_id="subl"] opacity 0.9
 
 # Autostart applications per workspace
-exec swaymsg "workspace 2; exec spotify;"
-exec swaymsg "workspace 2; exec mattermost-desktop;"
 exec swaymsg "workspace 1; exec kitty;"
 exec swaymsg "workspace 1; exec firefox;"
+exec swaymsg "workspace 2; exec spotify;"
+exec swaymsg "workspace 2; exec mattermost-desktop;"
 

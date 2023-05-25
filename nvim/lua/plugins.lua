@@ -60,6 +60,7 @@ return require('packer').startup(function(use)
 	use 'chiel92/vim-autoformat'
 	use 'sheerun/vim-polyglot'
 	use 'mhinz/vim-startify'
+	use 'lambdalisue/suda.vim'
 	use {
 		'ms-jpq/chadtree',
 		--config = function()

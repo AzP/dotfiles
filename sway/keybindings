@@ -30,9 +30,13 @@ input "7764:8240:TypeMatrix.com_USB_Keyboard" {
 # Send signal 1 to waybar when changing keyboard layout
 #bindsym Shift_R+Caps_Lock exec "pkill --signal SIGRTMIN+1 waybar"
 
+# Mouse sensitivity
 input "7805:11810:ROCCAT_ROCCAT_Kone_XTD" {
+	accel_profile flat
 	scroll_factor 1.2
+	pointer_accel 0.0
 }
+
 ### Key bindings
 
 # start a terminal
@@ -70,7 +74,7 @@ bindsym --locked {
 	XF86AudioMute exec --no-startup-id pactl set-sink-mute @DEFAULT_SINK@ toggle && ( pactl get-sink-mute @DEFAULT_SINK@ | $sedcommand > $wobsock ) || pactl get-sink-volume @DEFAULT_SINK@ | $sedcommand > $wobsock
 
 # Media player key bindings (you need playerctl for this to work.)
-	XF86AudioPlay exec playerctl -a play-pause
+	XF86AudioPlay exec playerctl play-pause
 	XF86AudioPause exec playerctl pause
 	XF86AudioNext exec playerctl next
 	XF86AudioPrev exec playerctl previous
